@@ -3,9 +3,13 @@ package com.example.spring.models;
 import java.time.LocalDate;
 import java.util.Date;
 
+import jakarta.validation.constraints.Size;
+
 public class Todo {
 	private int id;
 	private String userName;
+	
+	@Size(min = 10, message = "Please input more than 10 characters", max = 500)
 	private String description;
 	private LocalDate targetDate;
 	private boolean done;
