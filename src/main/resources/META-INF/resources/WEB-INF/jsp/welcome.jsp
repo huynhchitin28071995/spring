@@ -1,13 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ include file="common/header.jspf"%>
+<%@ include file="common/navigation.jspf"%>
 <pre>Welcome ${userName }</pre>
-<a href="/todos">All todos</a>
-</body>
-</html>
+<a href="/list-todos">All todos</a>
+<%@ include file="common/footer.jspf"%>

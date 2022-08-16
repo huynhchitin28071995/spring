@@ -27,10 +27,10 @@ public class Todo {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getUserName() {
+	public String getUsername() {
 		return userName;
 	}
-	public void setUserName(String userName) {
+	public void setUsername(String userName) {
 		this.userName = userName;
 	}
 	public String getDescription() {

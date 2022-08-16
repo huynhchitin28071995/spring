@@ -19,20 +19,22 @@ import com.example.spring.services.TodoService;
 import jakarta.validation.Valid;
 
 @Controller
-@SessionAttributes("userName")
+@SessionAttributes("name")
 public class TodoController {
 	@Autowired
 	private TodoService todoService;
 
-	@GetMapping("/todos")
+	@GetMapping("/list-todos")
 	public String goTodo(ModelMap model) {
-		model.put("todos", todoService.getAllTodo());
+		String username = (String) model.get("name");
+		todoService.findByUserName(username);
+		model.put("todos", todoService.findByUserName(username));
 		return "todos";
 	}
 
 	@GetMapping("add-todo")
 	public String showNewTodoPage(ModelMap model) {
-		Todo todo = new Todo(0, (String) model.get("userName"), "", LocalDate.now().plusYears(1), false);
+		Todo todo = new Todo(0, (String) model.get("name"), "", LocalDate.now().plusYears(1), false);
 		model.put("todo", todo);
 		return "updateTodo";
 	}
@@ -46,14 +48,14 @@ public class TodoController {
 		if (result.hasErrors()) {
 			return "todo";
 		}
-		todoService.addTodo((String) model.get("userName"), todo.getDescription(), todo.getTargetDate(), todo.isDone());
-		return "redirect:todos";
+		todoService.addTodo((String) model.get("name"), todo.getDescription(), todo.getTargetDate(), todo.isDone());
+		return "redirect:list-todos";
 	}
 
 	@RequestMapping("delete-todo")
 	public String deleteATodo(@RequestParam int id) {
 		todoService.deleteById(id);
-		return "redirect:todos";
+		return "redirect:list-todos";
 	}
 
 	@RequestMapping(value = "update-todo", method = RequestMethod.GET)
@@ -68,6 +70,6 @@ public class TodoController {
 			return "updateTodo";
 		}
 		todoService.updateTodoById(todo.getId(), todo.getDescription(), todo.getTargetDate(), todo.isDone());
-		return "redirect:todos";
+		return "redirect:list-todos";
 	}
 }
